@@ -3,8 +3,7 @@
 /* exported handleAuthClick */
 /* exported handleSignoutClick */
 // TODO(developer): Set to client ID and API key from the Developer Console
-const CLIENT_ID =
-  "754236795965-14let0qr9p02uul951adelrenu6le96s.apps.googleusercontent.com";
+const CLIENT_ID ="754236795965-14let0qr9p02uul951adelrenu6le96s.apps.googleusercontent.com";
 const API_KEY = "AIzaSyArKYpP2wqgJACbGGZrl_s99uY6LE3JSf0";
 
 // Discovery doc URL for APIs used by the quickstart
