@@ -6,8 +6,10 @@ for (var time = 0; time < rows.length; time++) {
     if (tr.querySelector("td p a") == null) {
     } else {
       var a = tr.querySelector("td p");
-    //   console.log(a, day);
-      extractData(a, day,time);
+
+      var tempLecture = extractData(a, day,time);
+      console.log(tempLecture);
+
     }
   }
 }
@@ -20,11 +22,13 @@ function extractData(a, day,time) {
     .innerHTML.replace(' <span class="ti-location-arrow"></span> ', "")
     .trim();
 
-  console.log(title);
-  console.log(code);
-  console.log(place);
-  console.log(convertDay(day));
-  console.log(convertTime(time))
+  // console.log(title);
+  // console.log(code);
+  // console.log(place);
+  // console.log(convertDay(day));
+  // console.log(convertTime(time));
+  var lecture = [convertDay(day),convertTime(time),code,title,place];
+  return lecture
 }
 function convertDay(day) {
   switch (day) {
@@ -78,4 +82,24 @@ function convertTime(time){
 
     }
 }
+
+
 //  console.log(rows);
+function writeToFile(){
+
+	// Requiring fs module in which
+	// writeFile function is defined.
+	const fs = require('fs')
+	
+	// Data which will write in a file.
+	let data = "Learning how to write in a file."
+	
+	// Write data in 'Output.txt' .
+	fs.writeFile('Output.txt', data, (err) => {
+		
+		// In case of a error throw err.
+		if (err) throw err;
+	})
+
+
+}

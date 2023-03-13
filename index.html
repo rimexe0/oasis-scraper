@@ -5,10 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="core.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/core.min.css" />
   </head>
   <body>
+    <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
+    <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
     <table
       id="table"
       class="calendar table table-bordered table-condensed table-sm table-hovered d-print-table"
@@ -23,7 +25,7 @@
             <strong>Salı</strong>
           </th>
           <th class="text-center" width="14%">
-            <strong>Çarşamba</strong>
+            <strong>Çarşamba</strong> 
           </th>
           <th class="text-center" width="14%">
             <strong>Perşembe</strong>
@@ -1276,4 +1278,7 @@
     </table>
   </body>
   <script src="index.js"></script>
+  <script src="addevent.js"></script>
+  <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+  <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
 </html>
