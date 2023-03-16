@@ -161,7 +161,7 @@ async function createEvent(lecture) {
     console.log("Event created: " + event.htmlLink);
   });
 }
-
+//this is where the funny business starts
 var rows = document.getElementsByTagName("tbody")[0].rows;
 for (var StartTime = 0; StartTime < rows.length; StartTime++) {
   for (var day = 0; day < 6; day++) {
