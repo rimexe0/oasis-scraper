@@ -1,4 +1,5 @@
-const CLIENT_ID ="754236795965-14let0qr9p02uul951adelrenu6le96s.apps.googleusercontent.com";
+const CLIENT_ID =
+  "754236795965-14let0qr9p02uul951adelrenu6le96s.apps.googleusercontent.com";
 const API_KEY = "AIzaSyArKYpP2wqgJACbGGZrl_s99uY6LE3JSf0";
 
 // Discovery doc URL for APIs used by the quickstart
@@ -14,6 +15,8 @@ let gapiInited = false;
 let gisInited = false;
 document.getElementById("authorize_button").style.visibility = "hidden";
 document.getElementById("signout_button").style.visibility = "hidden";
+document.getElementById("add_events_button").style.visibility = "hidden";
+
 /**
  * Callback after api.js is loaded.
  */
@@ -61,8 +64,8 @@ function handleAuthClick() {
       throw resp;
     }
     document.getElementById("signout_button").style.visibility = "visible";
+    document.getElementById("add_events_button").style.visibility = "visible";
     document.getElementById("authorize_button").innerText = "Refresh";
-    // await createEvent();
   };
 
   if (gapi.client.getToken() === null) {
@@ -85,6 +88,7 @@ function handleSignoutClick() {
     document.getElementById("content").innerText = "";
     document.getElementById("authorize_button").innerText = "Authorize";
     document.getElementById("signout_button").style.visibility = "hidden";
+    document.getElementById("add_events_button").style.visibility = "hidden";
   }
 }
 /**
@@ -123,33 +127,30 @@ async function listUpcomingEvents() {
   console.log(output);
 }
 async function createEvent(lecture) {
-
+  var timezone = "Europe/Istanbul";
+  var startTime = lecture[0];
+  var endTime = lecture[1];
+  var lectureCode = lecture[2];
+  var lectureTitle = lecture[3];
+  var lecturePlace = lecture[4];
   const event = {
-    'summary': 'Google I/O 2015',
-    'location': '800 Howard St., San Francisco, CA 94103',
-    'description': 'A chance to hear more about Google\'s developer products.',
-    'start': {
-      'dateTime': '2015-05-28T09:00:00-07:00',
-      'timeZone': 'America/Los_Angeles'
+    summary: lectureCode + " " + lectureTitle,
+    location: lecturePlace,
+    colorId:"1",
+    description: "Ieu",
+    start: {
+      dateTime: startTime,
+      timeZone: timezone,
     },
-    'end': {
-      'dateTime': '2015-05-28T17:00:00-07:00',
-      'timeZone': 'America/Los_Angeles'
+    end: {
+      dateTime: endTime,
+      timeZone: timezone,
     },
-    'recurrence': [
-      'RRULE:FREQ=DAILY;COUNT=2'
-    ],
-    'attendees': [
-      {'email': 'lpage@example.com'},
-      {'email': 'sbrin@example.com'}
-    ],
-    'reminders': {
-      'useDefault': false,
-      'overrides': [
-        {'method': 'email', 'minutes': 24 * 60},
-        {'method': 'popup', 'minutes': 10}
-      ]
-    }
+    recurrence: ["RRULE:FREQ=WEEKLY;COUNT=14"],
+    reminders: {
+      useDefault: false,
+      overrides: [{ method: "popup", minutes: 9 }],
+    },
   };
 
   const request = gapi.client.calendar.events.insert({
@@ -162,23 +163,38 @@ async function createEvent(lecture) {
   });
 }
 //this is where the funny business starts
-var rows = document.getElementsByTagName("tbody")[0].rows;
-for (var StartTime = 0; StartTime < rows.length; StartTime++) {
-  for (var day = 0; day < 6; day++) {
-    var tr = rows[StartTime].getElementsByTagName("td")[day];
-    if (tr.querySelector("td p a") == null) {
-    } else {
-      var a = tr.querySelector("td p");
 
-      var tempLecture = extractData(a, day,StartTime);
-      // await createEvent(tempLecture)
-      console.log(tempLecture);
+async function addEvents() {
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  var rows = document.getElementsByTagName("tbody")[0].rows;
+  var lectures = [];
+  for (var StartTime = 0; StartTime < rows.length; StartTime++) {
+    for (var day = 0; day < 6; day++) {
+      var tr = rows[StartTime].getElementsByTagName("td")[day];
+      if (tr.querySelector("td p a") == null) {
+      } else {
+        var a = tr.querySelector("td p"); // gets the lecture
 
+        var tempLecture = extractData(a, day, StartTime);
+        lectures.push(tempLecture);
+        console.log(tempLecture);
+      }
     }
+  }
+  if (confirm("Are you sure to add these to the calendar?")) {
+    for (i in lectures) {
+      await createEvent(lectures[i]);
+      await sleep(1000); // if you delete this google api will duck you up
+    }
+
+    console.log("its done if you did not duck it up somehow");
+  } else {
+    console.log("k");
   }
 }
 
-function extractData(a, day,StartTime) {
+function extractData(a, day, StartTime) {
+  var format = "+03:00";
   var title = a.querySelector("[data-original-title]").dataset.originalTitle;
   var code = a.querySelector("a strong").innerHTML;
   var place = a
@@ -186,68 +202,75 @@ function extractData(a, day,StartTime) {
     .innerHTML.replace(' <span class="ti-location-arrow"></span> ', "") // this is because oasis has some funny stuff
     .trim();
 
-  // console.log(title);
-  // console.log(code);
-  // console.log(place);
-  // console.log(convertDay(day));
-  // console.log(convertTime(time));
-  var lecture = [convertDay(day),
-    convertTime(StartTime)[0],
-  code,title,place];
-  return lecture
+  var lecture = [
+    convertDay(day) + "T" + convertTime(StartTime, format),
+    convertDay(day) + "T" + LectureTime(convertTime(StartTime), 45, format),
+    code,
+    title,
+    place,
+  ];
+  return lecture;
 }
 function convertDay(day) {
   switch (day) {
     case 1:
-      return "pazartesi";
+      return "2023-03-13";
     case 2:
-      return "sali";
+      return "2023-03-14";
     case 3:
-      return "carsamba";
+      return "2023-03-15";
     case 4:
-      return "persembe";
+      return "2023-03-16";
     case 5:
-      return "cuma";
+      return "2023-03-17";
   }
 }
-function convertTime(time){
-  var format = "+03:00"
-    switch(time){
-        case 0:
-            return ["08:30"+format+"\""]
-        case 1:
-            return ["09:25"+format+"\""]
-        case 2:
-            return ["10:20"+format+"\""]
-        case 3:
-            return ["11:15]"+format+"\""]
-        case 4:
-            return ["12:10"+format+"\""]
-        case 5:
-            return ["13:05"+format+"\""]
-        case 6:
-            return ["14:00"+format+"\""]
-        case 7:
-            return ["14:55"+format+"\""]
-        case 8:
-            return ["15:50"+format+"\""]
-        case 9:
-            return ["16:45"+format+"\""]
-        case 10:
-            return ["17:40"+format+"\""]
-        case 11:
-            return ["18:35"+format+"\""]
-        case 12:
-            return ["19:30"+format+"\""]
-        case 13:
-            return ["20:25"+format+"\""]
-        case 14:
-            return ["21:20"+format+"\""]
-        case 15:
-            return ["22:15"+format+"\""]
-        
-
-    }
+function convertTime(time, format) {
+  switch (time) {
+    case 0:
+      return "08:30:00" + format + "";
+    case 1:
+      return "09:25:00" + format + "";
+    case 2:
+      return "10:20:00" + format + "";
+    case 3:
+      return "11:15:00" + format + "";
+    case 4:
+      return "12:10:00" + format + "";
+    case 5:
+      return "13:05:00" + format + "";
+    case 6:
+      return "14:00:00" + format + "";
+    case 7:
+      return "14:55:00" + format + "";
+    case 8:
+      return "15:50:00" + format + "";
+    case 9:
+      return "16:45:00" + format + "";
+    case 10:
+      return "17:40:00" + format + "";
+    case 11:
+      return "18:35:00" + format + "";
+    case 12:
+      return "19:30:00" + format + "";
+    case 13:
+      return "20:25:00" + format + "";
+    case 14:
+      return "21:20:00" + format + "";
+    case 15:
+      return "22:15:00" + format + "";
+  }
 }
+function LectureTime(Letcure, time, format) {
+  var Letcure = Letcure.split(":");
+  hour = parseInt(Letcure[0]);
+  minute = parseInt(Letcure[1]);
 
-
+  if (minute + time >= 60) {
+    hour++;
+    minute = minute + time - 60;
+  } else {
+    minute = minute + time;
+  }
+  return hour + ":" + minute + ":00" + format + "";
+}
