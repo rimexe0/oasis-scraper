@@ -1,24 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/core.min.css" />
+    <title>oasis calendar thing</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@picocss/pico@1.*/css/pico.min.css"
+    />
+    <style>
+      :root {
+        --primary: #8e24aa;
+      }
+      table {
+        width: 50rem;
+      }
+      button {
+        width: 8rem;
+        display: inline-block;
+      }
+    </style>
   </head>
   <body>
-    <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
-    <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
-    <button id="add_events_button" onclick="addEvents()">Add events</button>
+    <div>
+      <button id="authorize_button" onclick="handleAuthClick()" role="button">
+        Authorize
+      </button>
+      <button id="signout_button" onclick="handleSignoutClick()" role="button">
+        Sign Out
+      </button>
+      <button id="add_events_button" onclick="addEvents()" role="button">
+        Add events
+      </button>
+      <h3 style="display: inline-block">
+        Open up the terminal to see the details
+      </h3>
+      <h5 style="position: fixed; right: 0; top: 0" id="deadge_button">
+        if there is no buttons on the left theres a problem with your keys
+      </h5>
+    </div>
 
-    
+
+
     <!--you need to add your table here-->
-      
+
+
+
+
     
   </body>
   <script src="index.js"></script>
-  <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
-  <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+  <script
+    async
+    defer
+    src="https://apis.google.com/js/api.js"
+    onload="gapiLoaded()"
+  ></script>
+  <script
+    async
+    defer
+    src="https://accounts.google.com/gsi/client"
+    onload="gisLoaded()"
+  ></script>
 </html>
