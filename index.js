@@ -1,5 +1,5 @@
-const CLIENT_ID ="YOUR CLIENT ID";
-const API_KEY = "YOUR API KEY";
+const CLIENT_ID =key.CLIENT_ID;
+const API_KEY = key.API_KEY;
 
 // Discovery doc URL for APIs used by the quickstart
 const DISCOVERY_DOC =
@@ -53,8 +53,6 @@ function maybeEnableButtons() {
   if (gapiInited && gisInited) {
     document.getElementById("authorize_button").style.visibility = "visible";
     document.getElementById("deadge_button").style.visibility = "hidden";
-    
-
   }
 }
 /**
@@ -94,8 +92,7 @@ function handleSignoutClick() {
   }
 }
 
-
-async function createEvent(lecture) {
+async function createEvent(lecture, notificationMins) {
   var timezone = "Europe/Istanbul";
   var startTime = lecture[0];
   var endTime = lecture[1];
@@ -105,7 +102,7 @@ async function createEvent(lecture) {
   const event = {
     summary: lectureCode + " " + lectureTitle,
     location: lecturePlace,
-    colorId:"1",
+    colorId: "1",
     description: "Izmir Ekonomi Universitesi",
     start: {
       dateTime: startTime,
@@ -118,7 +115,7 @@ async function createEvent(lecture) {
     recurrence: ["RRULE:FREQ=WEEKLY;COUNT=14"],
     reminders: {
       useDefault: false,
-      overrides: [{ method: "popup", minutes: 9 }],
+      overrides: [{ method: "popup", minutes: notificationMins }],
     },
   };
 
@@ -128,37 +125,37 @@ async function createEvent(lecture) {
   });
 
   request.execute(function (event) {
+    addTextToScreen("Event created: " + event.htmlLink);
     console.log("Event created: " + event.htmlLink);
   });
 }
 //this is where the funny business starts
+let classes = new URL(document.location).searchParams;
+let decryptedCalendar = decodeURIComponent(classes.get("calendar"));
+let lectures = JSON.parse(decryptedCalendar);
+if(lectures==null) addTextToScreen("getting calendar failed. Check your tempermonkey script.");
 
 async function addEvents() {
+  console.log(lectures);
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-  var rows = document.getElementsByTagName("tbody")[0].rows;
-  var lectures = [];
-  for (var StartTime = 0; StartTime < rows.length; StartTime++) {
-    for (var day = 0; day < 6; day++) {
-      var tr = rows[StartTime].getElementsByTagName("td")[day];
-      if (tr.querySelector("td p a") == null) {
-      } else {
-        var a = tr.querySelector("td p"); // gets the lecture
-
-        var tempLecture = extractData(a, day, StartTime);
-        lectures.push(tempLecture);
-        console.log(tempLecture);
-      }
-    }
-  }
+  var sortedLectures = sortLectures(lectures);
   if (confirm("Are you sure to add these to the calendar?")) {
-    for (i in lectures) {
-      await createEvent(lectures[i]);
-      await sleep(1000); // if you delete this google api will duck you up
+    for (i in sortedLectures) {
+      for (k in sortedLectures[i]) {
+        if (k == 0) {
+          await createEvent(sortedLectures[i][k], 90);
+        } else {
+          await createEvent(sortedLectures[i][k], 9);
+        }
+
+        await sleep(1000);
+      }
     }
 
     console.log("its done if you did not duck it up somehow");
+    alert("done");
   } else {
-    console.log("k");
+    alert("Cancelled");
   }
 }
 
@@ -242,4 +239,47 @@ function LectureTime(Letcure, time, format) {
     minute = minute + time;
   }
   return hour + ":" + minute + ":00" + format + "";
+}
+function sortLectures(lectures) {
+  var mon = [];
+  var tue = [];
+  var wed = [];
+  var thu = [];
+  var fri = [];
+  var sat = [];
+  var sun = [];
+  for (i = 0; i < lectures.length; i++) {
+    switch (lectures[i][5]) {
+      case 1:
+        mon.push(lectures[i]);
+        break;
+      case 2:
+        tue.push(lectures[i]);
+        break;
+      case 3:
+        wed.push(lectures[i]);
+        break;
+      case 4:
+        thu.push(lectures[i]);
+        break;
+      case 5:
+        fri.push(lectures[i]);
+        break;
+      case 6:
+        sat.push(lectures[i]);
+        break;
+      case 7:
+        sun.push(lectures[i]);
+        break;
+    }
+  }
+  var sortedLectures = [mon, tue, wed, thu, fri, sat, sun];
+  return sortedLectures;
+}
+function addTextToScreen(text){
+  var log=document.createElement("p");
+    var logText = document.createTextNode(text);
+    log.appendChild(logText);
+    var divlog = document.getElementById("log");
+    divlog.appendChild(log);
 }

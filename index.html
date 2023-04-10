@@ -23,7 +23,7 @@
     </style>
   </head>
   <body>
-    <div>
+    <div id="buttons">
       <button id="authorize_button" onclick="handleAuthClick()" role="button">
         Authorize
       </button>
@@ -34,22 +34,22 @@
         Add events
       </button>
       <h3 style="display: inline-block">
-        Open up the terminal to see the details
+        Open up the terminal to see more details
       </h3>
       <h5 style="position: fixed; right: 0; top: 0" id="deadge_button">
         if there is no buttons on the left theres a problem with your keys
       </h5>
     </div>
+    <div id="log">
 
-
-
-    <!--you need to add your table here-->
+    </div>
 
 
 
 
     
   </body>
+  <script src="secret.js"></script>
   <script src="index.js"></script>
   <script
     async
@@ -63,4 +63,7 @@
     src="https://accounts.google.com/gsi/client"
     onload="gisLoaded()"
   ></script>
+  <script>
+    
+    </script>
 </html>
