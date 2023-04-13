@@ -12,7 +12,7 @@ function yoink() {
   var rows = document.getElementsByTagName("tbody")[1].rows;
   var lectures = [];
   var lecturesStr = "";
-  let url = new URL('SERVER_URL');
+  let url = new URL('YOUR_SERVER_URL');
 
   for (var StartTime = 0; StartTime < rows.length; StartTime++) {
     for (var day = 0; day < 6; day++) {

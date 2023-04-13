@@ -20,35 +20,121 @@
         width: 8rem;
         display: inline-block;
       }
+      h4,h6{
+        margin-bottom: 0;
+        width:fit-content;
+        color: white;
+      }
+      .lecture_body{
+        padding: 5px;
+        margin: 5px;
+
+        
+        border-radius: 0.8rem;
+        min-width: 150px;
+        max-width: 200px;
+      }
+      #lectures #lectures1,#lectures #lectures2,#lectures #lectures3,#lectures #lectures4,#lectures #lectures5,#lectures #lectures6,#lectures #lectures7{
+        display: inline-block;
+        vertical-align: top;
+        
+      }
+      #lectures1 div{
+        background-color: #e53935 !important;
+        
+      }
+      #lectures2 div{
+        background-color: #8e24aa !important;
+      }
+      #lectures3 div{
+        background-color: #3949ab !important;
+      }
+      #lectures4 div{
+        background-color: #039be5 !important;
+      }
+      #lectures5 div{
+        background-color: #00897b !important;
+      }
+      #lectures6 div{
+        background-color: #7cb342 !important;
+      }
+      #lectures7 div{
+        background-color: #fdd835 !important;
+      }
+      
     </style>
   </head>
   <body>
+    <div class="container">
+
+    <nav>
+      <ul><li><strong>oasis scraper</strong></li></ul>
+      <ul>
+        <li>
+        <button id="authorize_button" onclick="handleAuthClick()" role="button">
+          Authorize
+        </button>
+      </li>
+      <li>
+        <button id="signout_button" onclick="handleSignoutClick()" role="button" class="secondary">
+          Sign Out
+        </button>
+      </li>
+      <li>
+        <button id="add_events_button" onclick="addEvents()" role="button" >
+          Add events
+        </button>
+      </li>
+      </ul>
+    </nav>
     <div id="buttons">
-      <button id="authorize_button" onclick="handleAuthClick()" role="button">
-        Authorize
-      </button>
-      <button id="signout_button" onclick="handleSignoutClick()" role="button">
-        Sign Out
-      </button>
-      <button id="add_events_button" onclick="addEvents()" role="button">
-        Add events
-      </button>
-      <h3 style="display: inline-block">
-        Open up the terminal to see more details
-      </h3>
-      <h5 style="position: fixed; right: 0; top: 0" id="deadge_button">
-        if there is no buttons on the left theres a problem with your keys
+      
+      
+      <h5 id="deadge_button">
+        There is a problem with your CLIENT_ID or API_KEY
       </h5>
+      <h5>check your calendar before sending it to google </h5>
+    </div>
+    <div id="lectures" class="">
+      <div id="lectures1" >
+        <h4>Monday</h4>
+      </div>
+      <div id="lectures2">
+        <h4>Tuesday</h4>
+
+      </div>
+      <div id="lectures3">
+        <h4>Wednesday</h4>
+
+      </div>
+      <div id="lectures4">
+        <h4>Thursday</h4>
+
+      </div>
+      <div id="lectures5">
+        <h4>Friday</h4>
+
+      </div>
+      
+
+
+
+
+      
     </div>
     <div id="log">
 
     </div>
+    <div>
+      <a href="https://github.com/rimexe0/oasis-scraper"style="position: fixed; right: 0; bottom: 0">github</a>
+    </div>
 
 
 
 
-    
+  </div>
   </body>
+  <script src="secret.js"></script>
   <script src="index.js"></script>
   <script
     async
