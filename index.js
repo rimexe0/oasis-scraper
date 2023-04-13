@@ -133,22 +133,36 @@ async function createEvent(lecture, notificationMins) {
 let classes = new URL(document.location).searchParams;
 let decryptedCalendar = decodeURIComponent(classes.get("calendar"));
 let lectures = JSON.parse(decryptedCalendar);
-if(lectures==null) addTextToScreen("getting calendar failed. Check your tempermonkey script.");
+if(lectures==null) 
+{
+  addTextToScreen("getting calendar failed. Check your tempermonkey script.");}
+else{
+  var sortedLectures = sortLectures(lectures);
+  for (i in sortedLectures) {
+    for (k in sortedLectures[i]) {
+      if (k == 0) {
+      } else {
+      }
+      showLecture(sortedLectures[i][k]);
+    }
+  }
 
+}
 async function addEvents() {
   console.log(lectures);
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-  var sortedLectures = sortLectures(lectures);
   if (confirm("Are you sure to add these to the calendar?")) {
     for (i in sortedLectures) {
       for (k in sortedLectures[i]) {
         if (k == 0) {
-          await createEvent(sortedLectures[i][k], 90);
+          //await createEvent(sortedLectures[i][k], 90);
         } else {
-          await createEvent(sortedLectures[i][k], 9);
+          //await createEvent(sortedLectures[i][k], 9);
         }
 
-        await sleep(1000);
+        //await sleep(1000);
+        showLecture(sortedLectures[i][k]);
+
       }
     }
 
@@ -282,4 +296,29 @@ function addTextToScreen(text){
     log.appendChild(logText);
     var divlog = document.getElementById("log");
     divlog.appendChild(log);
+}
+function showLecture(lecture){
+  var timezone = "Europe/Istanbul";
+  var startTime = lecture[0];
+  var endTime = lecture[1];
+  var lectureCode = lecture[2];
+  var lectureTitle = lecture[3];
+  var lecturePlace = lecture[4];
+  var lectureDay = lecture[5];
+
+  var lecture = `
+  <div class="lecture_body">
+  
+  <h6>`+lectureTitle+" "+lectureCode+`</h6>
+  <h6>`+lecturePlace+`</h6>
+  
+</div>
+</div>`
+
+var div =  document.getElementById('lectures'+lectureDay);
+
+div.innerHTML+=lecture;
+
+
+
 }
