@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="light" style="height: 100%;">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -9,73 +9,12 @@
       rel="stylesheet"
       href="https://unpkg.com/@picocss/pico@1.*/css/pico.min.css"
     />
-    <style>
-      :root {
-        --primary: #8e24aa;
-      }
-      table {
-        width: 50rem;
-      }
-      button {
-        width: 8rem;
-        display: inline-block;
-        -webkit-box-shadow: 0px 0px 21px -7px rgba(0, 0, 0, 0.75) !important;
-        -moz-box-shadow: 0px 0px 21px -7px rgba(0, 0, 0, 0.75) !important;
-        box-shadow: 0px 0px 21px -7px rgba(0, 0, 0, 0.75) !important;
-      }
-      
-      h6 {
-        margin-bottom: 0;
-        width: fit-content;
-        color: white;
-      }
-
-      .lecture_body {
-        padding: 5px;
-        margin: 10px 5px;
-
-        border-radius: 0.8rem;
-        min-width: 150px;
-        max-width: 200px;
-        -webkit-box-shadow: 0px 0px 21px -7px rgba(0, 0, 0, 0.75);
-        -moz-box-shadow: 0px 0px 21px -7px rgba(0, 0, 0, 0.75);
-        box-shadow: 0px 0px 21px -7px rgba(0, 0, 0, 0.75);
-      }
-      #lectures #lectures1,
-      #lectures #lectures2,
-      #lectures #lectures3,
-      #lectures #lectures4,
-      #lectures #lectures5,
-      #lectures #lectures6,
-      #lectures #lectures7 {
-        display: inline-block;
-        vertical-align: top;
-      }
-      #lectures1 div {
-        background-color: #e53935 !important;
-      }
-      #lectures2 div {
-        background-color: #8e24aa !important;
-      }
-      #lectures3 div {
-        background-color: #3949ab !important;
-      }
-      #lectures4 div {
-        background-color: #039be5 !important;
-      }
-      #lectures5 div {
-        background-color: #00897b !important;
-      }
-      #lectures6 div {
-        background-color: #7cb342 !important;
-      }
-      #lectures7 div {
-        background-color: #fdd835 !important;
-      }
-    </style>
+    <link rel="stylesheet" href="main.css">
+    
   </head>
   <body>
-    <div class="container">
+    <div id="bg"></div>
+    <div class="container" style="z-index: 3; position: relative;">
       <nav>
         <ul>
           <li><strong>oasis scraper</strong></li>
@@ -86,11 +25,12 @@
               id="authorize_button"
               onclick="handleAuthClick()"
               role="button"
+              class="outline"
             >
               Authorize
             </button>
 
-            <button id="deadge_button" style="background-color: #e53935">
+            <button id="deadge_button" style="background-color: #e538354b; color: red;" class="outline">
               KEY ERROR
             </button>
           </li>
@@ -99,13 +39,13 @@
               id="signout_button"
               onclick="handleSignoutClick()"
               role="button"
-              class="secondary"
+              class="secondary outline"
             >
               Sign Out
             </button>
           </li>
           <li>
-            <button id="add_events_button" onclick="addEvents()" role="button">
+            <button id="add_events_button" onclick="addEvents()" role="button" class="outline">
               Add events
             </button>
           </li>

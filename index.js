@@ -308,6 +308,7 @@ function showLecture(lecture){
 
   var lecture = `
   <div class="lecture_body">
+  <div class="lecture_bg"></div>
   
   <h6>`+lectureTitle+" "+lectureCode+`</h6>
   <h6>`+lecturePlace+`</h6>
