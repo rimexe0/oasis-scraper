@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -19,120 +19,131 @@
       button {
         width: 8rem;
         display: inline-block;
+        -webkit-box-shadow: 0px 0px 21px -7px rgba(0, 0, 0, 0.75) !important;
+        -moz-box-shadow: 0px 0px 21px -7px rgba(0, 0, 0, 0.75) !important;
+        box-shadow: 0px 0px 21px -7px rgba(0, 0, 0, 0.75) !important;
       }
-      h4,h6{
+      
+      h6 {
         margin-bottom: 0;
-        width:fit-content;
+        width: fit-content;
         color: white;
       }
-      .lecture_body{
-        padding: 5px;
-        margin: 5px;
 
-        
+      .lecture_body {
+        padding: 5px;
+        margin: 10px 5px;
+
         border-radius: 0.8rem;
         min-width: 150px;
         max-width: 200px;
+        -webkit-box-shadow: 0px 0px 21px -7px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 0px 0px 21px -7px rgba(0, 0, 0, 0.75);
+        box-shadow: 0px 0px 21px -7px rgba(0, 0, 0, 0.75);
       }
-      #lectures #lectures1,#lectures #lectures2,#lectures #lectures3,#lectures #lectures4,#lectures #lectures5,#lectures #lectures6,#lectures #lectures7{
+      #lectures #lectures1,
+      #lectures #lectures2,
+      #lectures #lectures3,
+      #lectures #lectures4,
+      #lectures #lectures5,
+      #lectures #lectures6,
+      #lectures #lectures7 {
         display: inline-block;
         vertical-align: top;
-        
       }
-      #lectures1 div{
+      #lectures1 div {
         background-color: #e53935 !important;
-        
       }
-      #lectures2 div{
+      #lectures2 div {
         background-color: #8e24aa !important;
       }
-      #lectures3 div{
+      #lectures3 div {
         background-color: #3949ab !important;
       }
-      #lectures4 div{
+      #lectures4 div {
         background-color: #039be5 !important;
       }
-      #lectures5 div{
+      #lectures5 div {
         background-color: #00897b !important;
       }
-      #lectures6 div{
+      #lectures6 div {
         background-color: #7cb342 !important;
       }
-      #lectures7 div{
+      #lectures7 div {
         background-color: #fdd835 !important;
       }
-      
     </style>
   </head>
   <body>
     <div class="container">
+      <nav>
+        <ul>
+          <li><strong>oasis scraper</strong></li>
+        </ul>
+        <ul>
+          <li>
+            <button
+              id="authorize_button"
+              onclick="handleAuthClick()"
+              role="button"
+            >
+              Authorize
+            </button>
 
-    <nav>
-      <ul><li><strong>oasis scraper</strong></li></ul>
-      <ul>
-        <li>
-        <button id="authorize_button" onclick="handleAuthClick()" role="button">
-          Authorize
-        </button>
-      </li>
-      <li>
-        <button id="signout_button" onclick="handleSignoutClick()" role="button" class="secondary">
-          Sign Out
-        </button>
-      </li>
-      <li>
-        <button id="add_events_button" onclick="addEvents()" role="button" >
-          Add events
-        </button>
-      </li>
-      </ul>
-    </nav>
-    <div id="buttons">
-      
-      
-      <h5 id="deadge_button">
-        There is a problem with your CLIENT_ID or API_KEY
-      </h5>
-      <h5>check your calendar before sending it to google </h5>
+            <button id="deadge_button" style="background-color: #e53935">
+              KEY ERROR
+            </button>
+          </li>
+          <li>
+            <button
+              id="signout_button"
+              onclick="handleSignoutClick()"
+              role="button"
+              class="secondary"
+            >
+              Sign Out
+            </button>
+          </li>
+          <li>
+            <button id="add_events_button" onclick="addEvents()" role="button">
+              Add events
+            </button>
+          </li>
+        </ul>
+      </nav>
+      <div id="buttons">
+        <h5>
+          <abbr title="check if classes are in the correct side or something"
+            >check your calendar before sending it to google</abbr
+          >
+        </h5>
+      </div>
+      <div id="lectures" class="">
+        <div id="lectures1">
+          <h4>Monday</h4>
+        </div>
+        <div id="lectures2">
+          <h4>Tuesday</h4>
+        </div>
+        <div id="lectures3">
+          <h4>Wednesday</h4>
+        </div>
+        <div id="lectures4">
+          <h4>Thursday</h4>
+        </div>
+        <div id="lectures5">
+          <h4>Friday</h4>
+        </div>
+      </div>
+      <div id="log"></div>
+      <div>
+        <a
+          href="https://github.com/rimexe0/oasis-scraper"
+          style="position: fixed; right: 0; bottom: 0"
+          >github/rimexe0</a
+        >
+      </div>
     </div>
-    <div id="lectures" class="">
-      <div id="lectures1" >
-        <h4>Monday</h4>
-      </div>
-      <div id="lectures2">
-        <h4>Tuesday</h4>
-
-      </div>
-      <div id="lectures3">
-        <h4>Wednesday</h4>
-
-      </div>
-      <div id="lectures4">
-        <h4>Thursday</h4>
-
-      </div>
-      <div id="lectures5">
-        <h4>Friday</h4>
-
-      </div>
-      
-
-
-
-
-      
-    </div>
-    <div id="log">
-
-    </div>
-    <div>
-      <a href="https://github.com/rimexe0/oasis-scraper"style="position: fixed; right: 0; bottom: 0">github</a>
-    </div>
-
-
-
-
-  </div>
   </body>
   <script src="secret.js"></script>
   <script src="index.js"></script>
@@ -148,7 +159,5 @@
     src="https://accounts.google.com/gsi/client"
     onload="gisLoaded()"
   ></script>
-  <script>
-    
-    </script>
+  <script></script>
 </html>
