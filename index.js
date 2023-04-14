@@ -52,7 +52,7 @@ function gisLoaded() {
 function maybeEnableButtons() {
   if (gapiInited && gisInited) {
     document.getElementById("authorize_button").style.visibility = "visible";
-    document.getElementById("deadge_button").style.visibility = "hidden";
+    document.getElementById("deadge_button").remove();
   }
 }
 /**
@@ -155,13 +155,13 @@ async function addEvents() {
     for (i in sortedLectures) {
       for (k in sortedLectures[i]) {
         if (k == 0) {
-          //await createEvent(sortedLectures[i][k], 90);
+          await createEvent(sortedLectures[i][k], 90);
         } else {
-          //await createEvent(sortedLectures[i][k], 9);
+          await createEvent(sortedLectures[i][k], 9);
         }
 
-        //await sleep(1000);
-        showLecture(sortedLectures[i][k]);
+        await sleep(1000);
+       
 
       }
     }
